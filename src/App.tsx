@@ -12,15 +12,26 @@ const App = () => {
 
     const giveCards = () => {
         const dealtCards = deck.getCards(5);
-        setCards(dealtCards);
+        const filteredCards = dealtCards.filter(card => card !== undefined);
+        setCards(filteredCards);
     };
+
 
   return (
       <>
-          <button onClick={giveCards}>asd</button>
-          <div className="playingCards faceImages">
-              <GameCard rank={'10'} suit={'hearts'}/>
-          </div>
+          <p>Колличество кард в коллоде {deck.cardList.length}</p>
+          {
+              cards.length !== 0 ? <div>
+                  <button className="btn" onClick={giveCards}>Раздать карты</button>
+                  <div className="playingCards faceImages">
+                      {cards.map((card) => (
+                          <GameCard key={card.rank + card.suit} rank={card.rank} suit={card.suit}/>
+                      ))}
+                  </div>
+              </div> : <div>
+                  <button className='btn' onClick={giveCards}>Раздать карты</button>
+              </div>
+          }
       </>
   );
 };
